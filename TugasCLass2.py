@@ -103,5 +103,5 @@ def utama():
     kalau tidak:
         print("Anda salah memilih.")
 
-jika _nama_ == "_utama_":
+jika __nama__ == "__utama__":
     utama()
