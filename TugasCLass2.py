@@ -1,107 +1,102 @@
-kelas Buku:
-    def __init__(diri, judul, penulis, genre, status):
-        self.judul = judul
-        self.penulis = penulis
-        self.genre = genre
-        diri.status = status
+class Perpustakaan:
+    def __init__(self):
+        self.koleksi_buku = []
 
-    def __str__(diri):
-        return f"{self.judul} - {self.penulis} ({self.genre}) - Status: {self.status}"
+    def check_ketersediaan(self, judul):
+        for buku in self.koleksi_buku:
+            if buku.judul.lower() == judul.lower():
+                if buku.status == "Tersedia":
+                    print(f"Buku {buku.judul} tersedia untuk dipinjam.")
+                else:
+                    print(f"Buku {buku.judul} tidak tersedia untuk dipinjam.")
+                return
+        print(f"Buku dengan judul '{judul}' tidak ditemukan.")
 
-perpustakaan kelas:
-    def __init__(diri):
-        diri.koleksi_buku = []
-
-    def check_ketersediaan(mandiri):
-        jika tidak mandiri.buku.tersedia:
-            print(f"Buku {self.buku.judul}' tidak tersedia untuk dipinjamkan.")
-
-    def tampilkan_buku(diri):
+    def tampilkan_buku(self):
         if self.koleksi_buku:
             print("-- Daftar Buku --")
-            untuk buku di self.koleksi_buku:
-                mencetak (buku)
-        kalau tidak:
+            for buku in self.koleksi_buku:
+                print(buku)
+        else:
             print("Koleksi buku masih kosong.")
 
     def cari_buku(self, judul):
-        untuk buku di self.koleksi_buku:
+        for buku in self.koleksi_buku:
             if buku.judul.lower() == judul.lower():
-                mencetak (buku)
-                kembali
-        print(f"Buku dengan judul '{judul} tidak ditemukan.")
+                print(buku)
+                return
+        print(f"Buku dengan judul '{judul}' tidak ditemukan.")
 
-    def pinjam_buku(diri, judul, anggota):
-        untuk buku di self.koleksi_buku:
+    def pinjam__buku(self, judul, anggota):
+        for buku in self.koleksi_buku:
             if buku.judul.lower() == judul.lower():
                 if buku.status == "Tersedia":
                     buku.status = "Dipinjam"
                     anggota.buku_pinjaman.append(buku)
-                    print(f"Buku {buku.judul}' berhasil dipinjamkan oleh {anggota.nama}.")
-                    kembali
-                kalau tidak:
-                    print(f"Buku {buku.judul}' tidak tersedia untuk dipinjamkan.")
-                    kembali
+                    print(f"Buku '{buku.judul}' berhasil dipinjam oleh {anggota.nama}.")
+                else:
+                    print(f"Buku '{buku.judul}' tidak tersedia untuk dipinjam.")
+                return
         print(f"Buku dengan judul '{judul}' tidak ditemukan.")
 
-anggota kelas:
-    def __init__(diri, nama, ID, alamat=Tidak ada, nomor_telepon=Tidak ada):
-        diri.nama = nama
-        diri.ID = ID
-        self.alamat = alamat
-        self.nomor_telepon = nomor_telepon
-        mandiri.buku_pinjaman = []
+class Anggota:
+    def __init__(self, nama, ID):
+        self.nama = nama
+        self.ID = ID
+        self.buku_pinjaman = []
 
     def tampilkan_buku_pinjaman(self):
         if self.buku_pinjaman:
             print(f"-- Buku Pinjaman {self.nama} --")
-            untuk buku di self.buku_pinjaman:
-                mencetak (buku)
-        kalau tidak:
+            for buku in self.buku_pinjaman:
+                print(buku)
+        else:
             print(f"{self.nama} tidak memiliki buku pinjaman.")
 
-kelas Catatan_peminjaman:
-    def __init__(diri, id_buku, id_anggota, tanggal_pinjam, tanggal_kembali):
-        diri.id_buku = id_buku
-        diri.id_anggota = id_anggota
-        self.tanggal_pinjam = tanggal_pinjam
-        self.tanggal_kembali = tanggal_kembali                
+class Buku:
+    def __init__(self, judul, penulis, genre, status):
+        self.judul = judul
+        self.penulis = penulis
+        self.genre = genre
+        self.status = status
 
-def utama():
+    def __str__(self):
+        return f"{self.judul} - {self.penulis} ({self.genre}) - Status: {self.status}"
+
+def main():
     # Buat beberapa buku
-    buku1 = Buku("Bumi", "Tere Liye", "Fiksi", "Tersedia")
+    bukul = Buku("Bumi", "Tere Liye", "Fiksi", "Tersedia")
     buku2 = Buku("Laskar Pelangi", "Andrea Hirata", "Fiksi", "Tersedia")
-    buku3 = Buku("Filosofi Terbang", "Dewi Lestari", "Fiksi", "Dipinjam")
+    buku3 = Buku("Filosofi Terbang", "Dewi Lastari", "Fiksi", "Dipinjam")
 
     # Buat perpustakaan
     perpustakaan = Perpustakaan()
-    perpustakaan.koleksi_buku.extend([buku1, buku2, buku3])
+    perpustakaan.koleksi_buku.extend([bukul, buku2, buku3])
 
-    #Buat anggota
+    # Buat anggota
     anggota1 = Anggota("Adi", 12345)
     anggota2 = Anggota("Adu", 56789)
 
-    #Program Jalankan
+    # Jalankan program
     print("\n-- Menu Perpustakaan --")
-    print("1.Tampilkan Daftar Buku")
-    print("2.Cari Buku")
-    print("3.Pinjam Buku")
-    print("4.Kembalikan")
-    angka = int(input("Pilih menu : "))
+    print("1. Tampilkan Daftar Buku")
+    print("2. Cari Buku")
+    print("3. Pinjam Buku")
+    print("4. Kembalikan")
+    angka = int(input("Pilih menu: "))
 
-    jika angka == 1:
+    if angka == 1:
         perpustakaan.tampilkan_buku()
     elif angka == 2:
-        judul = input("Masukkan judul buku : ")
+        judul = input("Masukkan judul buku: ")
         perpustakaan.cari_buku(judul)
     elif angka == 3:
-        judul = input("Judul buku yang akan dipinjamkan : ")
-        perpustakaan.pinjam_buku(judul, anggota1)
+        judul = input("Judul buku yang akan dipinjam: ")
+        perpustakaan.pinjam__buku(judul, anggota1)  # Peminjaman buku oleh anggota1, bisa disesuaikan dengan anggota lain
     elif angka == 4:
-        buku = input("Judul buku yang akan dikembalikan : ")
-        # Tambahkan logika untuk mengembalikan buku
-    kalau tidak:
-        print("Anda salah memilih.")
+        pass  # Logika untuk pengembalian buku belum diimplementasikan
+    else:
+        print("Pilihan tidak valid.")
 
-jika __nama__ == "__utama__":
-    utama()
+if __name__ == "__main__":
+    main();
